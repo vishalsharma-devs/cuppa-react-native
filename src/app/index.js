@@ -1,10 +1,12 @@
 import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 import { useEffect, useRef } from "react";
 import { Animated, StyleSheet, Text, View } from "react-native";
 import Svg, { Circle, Path } from "react-native-svg";
 import CoffeeCup from "../../assets/project_images/coffee-cupp.svg";
 import { STRINGS } from "../constants/strings";
-export default function HomeScreen() {
+export default function SplashScreen() {
+  const router = useRouter();
   const progress = useRef(new Animated.Value(0)).current;
   const textAnimatedValue = useRef(new Animated.Value(0)).current;
   const circleAnimatedValue = useRef(new Animated.Value(0)).current;
@@ -24,25 +26,27 @@ export default function HomeScreen() {
       }),
     ]).start(({ finished }) => {
       if (finished) {
-        Animated.parallel([
-          Animated.timing(textAnimatedValue, {
+        Animated.timing(textAnimatedValue, {
+          toValue: 1,
+          duration: 800,
+          useNativeDriver: true,
+        }).start();
+        Animated.loop(
+          Animated.timing(steamAnimatedValue, {
             toValue: 1,
-            duration: 800,
+            duration: 1500,
             useNativeDriver: true,
           }),
-          Animated.loop(
-            Animated.timing(steamAnimatedValue, {
-              toValue: 1,
-              duration: 1500,
-              useNativeDriver: true,
-            }),
-          ),
-          Animated.timing(progress, {
-            toValue: 1,
-            duration: 3000,
-            useNativeDriver: false,
-          }),
-        ]).start();
+        ).start();
+        Animated.timing(progress, {
+          toValue: 1,
+          duration: 3000,
+          useNativeDriver: false,
+        }).start(({ finished }) => {
+          if (finished) {
+            router.replace("/home");
+          }
+        });
       }
     });
   }, []);
@@ -186,12 +190,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 42,
     color: "#AD6636",
-    letterSpacing: 2,
     textAlign: "center",
-    fontFamily: "Playfair-Bold",
+    fontFamily: "Lora-SemiBold",
   },
   tagLine: {
     fontSize: 17,
+    fontFamily: "DMSans-Regular",
   },
   titleContainer: {
     width: "100%",
@@ -239,7 +243,8 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     fontSize: 14,
-    letterSpacing: 1,
+    letterSpacing: 0.8,
     color: "#AD6636",
+    fontFamily: "DMSans-Medium",
   },
 });
