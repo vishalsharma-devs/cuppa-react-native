@@ -1,7 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
+import { useState } from "react";
 import {
     Alert,
+    FlatList,
     Pressable,
     StyleSheet,
     Text,
@@ -9,8 +11,9 @@ import {
     View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
+import { CATEGORIES } from "../constants/categories";
 export default function HomeScreen() {
+  const [category, setCategory] = useState("All");
   return (
     <SafeAreaView style={styles.safeContainer}>
       {/* Header Container  */}
@@ -54,7 +57,7 @@ export default function HomeScreen() {
         </View>
       </View>
 
-      {/* Hero container */}
+      {/* Hero Container */}
       <View style={styles.heroContainer}>
         <View style={styles.subHero1}>
           <Text style={styles.heroHeading}>CUPPA SPECIAL </Text>
@@ -76,6 +79,34 @@ export default function HomeScreen() {
           />
           <Text style={styles.promoBadge}>20% OFF</Text>
         </View>
+      </View>
+
+      {/* Category Container */}
+      <View style={styles.categoryContainer}>
+        <Text style={styles.categoryHeading}>Categories</Text>
+        <FlatList
+          data={CATEGORIES}
+          horizontal
+          contentContainerStyle={styles.categoryList}
+          keyExtractor={(item) => item}
+          renderItem={({ item }) => (
+            <Pressable
+              onPress={() => {
+                setCategory(item);
+                Alert.alert("Hello I am ", item);
+              }}
+            >
+              <Text
+                style={[
+                  styles.category,
+                  item === category && styles.categoryActive,
+                ]}
+              >
+                {item}
+              </Text>
+            </Pressable>
+          )}
+        />
       </View>
     </SafeAreaView>
   );
@@ -153,7 +184,6 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   subHero1: { flex: 1 },
-  //   subHero2: { width: 150 },
   heroHeading: {
     color: "#f2c291",
     fontFamily: "DMSans-SemiBold",
@@ -186,4 +216,26 @@ const styles = StyleSheet.create({
     fontFamily: "DMSans-Regular",
   },
   heroImage: { height: 120, width: 150 },
+  categoryContainer: { gap: 10 },
+  categoryHeading: {
+    fontFamily: "DMSans-SemiBold",
+    fontSize: 18,
+    marginLeft: 10,
+  },
+  categoryList: {
+    paddingHorizontal: 10,
+    gap: 10,
+  },
+  category: {
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 15,
+    fontFamily: "DMSans-Regular",
+    backgroundColor: "#eee7e7",
+    color: "#000000",
+  },
+  categoryActive: {
+    backgroundColor: "#AD6636",
+    color: "#eee7e7",
+  },
 });
