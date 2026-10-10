@@ -12,99 +12,206 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CATEGORIES } from "../constants/categories";
+import { COFFEES } from "../constants/coffees";
 export default function HomeScreen() {
   const [category, setCategory] = useState("All");
+
   return (
     <SafeAreaView style={styles.safeContainer}>
-      {/* Header Container  */}
-      <View style={styles.headerContainer}>
-        <View style={styles.firstHeader}>
-          <Image
-            source={require("../../assets/project_images/avatar.webp")}
-            style={styles.avatar}
-          />
-
-          <View style={styles.headerUserInfo}>
-            <Text style={styles.headerUsername}>Alex Morgan</Text>
-            <View style={styles.locationRow}>
-              <Ionicons
-                name="location-outline"
-                size={20}
-                color="#AD6636"
-                style={styles.locationIcon}
-              />
-              <Text style={styles.headerUserLocation}>Toronto, Canada</Text>
-            </View>
-          </View>
-
-          <Pressable
-            onPress={() => Alert.alert("Hi, I am Notification")}
-            style={styles.notificationButton}
-          >
-            <Ionicons name="notifications-outline" size={28} color="#AD6636" />
-          </Pressable>
-        </View>
-        <View style={styles.secondHeader}>
-          <Ionicons name="search-outline" size={28} />
-
-          <TextInput placeholder="Search Coffee.." style={styles.searchInput} />
-          <Pressable
-            onPress={() => Alert.alert("Hi, I am Options")}
-            style={styles.optionsButton}
-          >
-            <Ionicons name="options-outline" size={28} color="#ffffff" />
-          </Pressable>
-        </View>
-      </View>
-
-      {/* Hero Container */}
-      <View style={styles.heroContainer}>
-        <View style={styles.subHero1}>
-          <Text style={styles.heroHeading}>CUPPA SPECIAL </Text>
-          <Text style={styles.heroHeadline}>
-            20% off your first coffee order
-          </Text>
-          <Pressable
-            style={styles.heroButton}
-            onPress={() => Alert.alert("Thanks for choosing us.")}
-          >
-            <Text style={styles.heroButtonText}>Order Now</Text>
-          </Pressable>
-        </View>
-        <View style={styles.subHero2}>
-          <Image
-            source={require("../../assets/project_images/banner_coffee.webp")}
-            style={styles.heroImage}
-            contentFit="cover"
-          />
-          <Text style={styles.promoBadge}>20% OFF</Text>
-        </View>
-      </View>
-
-      {/* Category Container */}
-      <View style={styles.categoryContainer}>
-        <Text style={styles.categoryHeading}>Categories</Text>
+      {/* Product Container */}
+      <View style={styles.productContainer}>
         <FlatList
-          data={CATEGORIES}
-          horizontal
-          contentContainerStyle={styles.categoryList}
-          keyExtractor={(item) => item}
+          data={COFFEES}
+          keyExtractor={(item) => item.id}
+          numColumns={2}
+          key={2}
+          ListHeaderComponent={
+            <View style={{ gap: 15 }}>
+              {/* Header Container  */}
+              <View style={styles.headerContainer}>
+                <View style={styles.firstHeader}>
+                  <Image
+                    source={require("../../assets/project_images/avatar.webp")}
+                    style={styles.avatar}
+                  />
+
+                  <View style={styles.headerUserInfo}>
+                    <Text style={styles.headerUsername}>Alex Morgan</Text>
+                    <View style={styles.locationRow}>
+                      <Ionicons
+                        name="location-outline"
+                        size={20}
+                        color="#AD6636"
+                        style={styles.locationIcon}
+                      />
+                      <Text style={styles.headerUserLocation}>
+                        Toronto, Canada
+                      </Text>
+                    </View>
+                  </View>
+
+                  <Pressable
+                    onPress={() => Alert.alert("Hi, I am Notification")}
+                    style={styles.notificationButton}
+                  >
+                    <Ionicons
+                      name="notifications-outline"
+                      size={28}
+                      color="#8D6E63"
+                    />
+                  </Pressable>
+                </View>
+                <View style={styles.secondHeader}>
+                  <Ionicons name="search-outline" size={28} />
+
+                  <TextInput
+                    placeholder="Search Coffee.."
+                    style={styles.searchInput}
+                  />
+                  <Pressable
+                    onPress={() => Alert.alert("Hi, I am Options")}
+                    style={styles.optionsButton}
+                  >
+                    <Ionicons
+                      name="options-outline"
+                      size={28}
+                      color="#ffffff"
+                    />
+                  </Pressable>
+                </View>
+              </View>
+
+              {/* Hero Container */}
+              <View style={styles.heroContainer}>
+                <View style={styles.subHero1}>
+                  <Text style={styles.heroHeading}>CUPPA SPECIAL </Text>
+                  <Text style={styles.heroHeadline}>
+                    20% off your first coffee order
+                  </Text>
+                  <Pressable
+                    style={styles.heroButton}
+                    onPress={() => Alert.alert("Thanks for choosing us.")}
+                  >
+                    <Text style={styles.heroButtonText}>Order Now</Text>
+                  </Pressable>
+                </View>
+                <View style={styles.subHero2}>
+                  <Image
+                    source={require("../../assets/project_images/banner_coffee.webp")}
+                    style={[styles.heroImage]}
+                    contentFit="cover"
+                  />
+                  <Text style={[styles.promoBadge]}>20% OFF</Text>
+                </View>
+              </View>
+
+              {/* Category Container */}
+              <View style={styles.categoryContainer}>
+                <Text style={styles.categoryHeading}>Categories</Text>
+                <FlatList
+                  data={CATEGORIES}
+                  horizontal
+                  contentContainerStyle={styles.categoryList}
+                  keyExtractor={(item) => item.id}
+                  renderItem={({ item }) => (
+                    <Pressable
+                      onPress={() => {
+                        setCategory(item.name);
+                        Alert.alert("Hello I am ", item.name);
+                      }}
+                      style={[
+                        styles.category,
+                        styles.categoryText,
+                        item.name === category && styles.categoryActive,
+                      ]}
+                    >
+                      <Ionicons
+                        name={item.icon}
+                        size={20}
+                        color={item.name === category ? "#eee7e7" : "#000000"}
+                      />
+
+                      <Text
+                        style={
+                          item.name === category && styles.categoryTextActive
+                        }
+                      >
+                        {item.name}
+                      </Text>
+                    </Pressable>
+                  )}
+                />
+              </View>
+              <Text style={styles.productHeading}>Popular Coffee</Text>
+            </View>
+          }
+          contentContainerStyle={{
+            paddingHorizontal: 10,
+            rowGap: 10,
+            paddingBottom: 20,
+          }}
+          columnWrapperStyle={{
+            gap: 10,
+          }}
           renderItem={({ item }) => (
-            <Pressable
-              onPress={() => {
-                setCategory(item);
-                Alert.alert("Hello I am ", item);
-              }}
-            >
-              <Text
-                style={[
-                  styles.category,
-                  item === category && styles.categoryActive,
-                ]}
+            <View style={styles.productItem}>
+              <View style={{ alignItems: "center" }}>
+                <Image
+                  source={item.image}
+                  style={styles.productImageItem}
+                  contentFit="contain"
+                />
+              </View>
+
+              <View style={styles.rating}>
+                <Ionicons name="star-sharp" size={13} color="#ffffff" />
+                <Text style={styles.ratingText}>{item.rating}</Text>
+              </View>
+              <View
+                style={{
+                  paddingHorizontal: 10,
+                  paddingTop: 10,
+                  flex: 1,
+                }}
               >
-                {item}
-              </Text>
-            </Pressable>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontFamily: "DMSans-SemiBold",
+                    letterSpacing: -0.1,
+                  }}
+                  numberOfLines={2}
+                >
+                  {item.name}
+                </Text>
+                <Text
+                  style={{
+                    fontFamily: "DMSans-Regular",
+                    fontSize: 13,
+                    color: "#7b7979",
+                  }}
+                >
+                  {item.description}
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  paddingHorizontal: 10,
+                  paddingTop: 10,
+                }}
+              >
+                <Text style={{ fontFamily: "DMSans-SemiBold", fontSize: 16 }}>
+                  $ {item.price.toFixed(2)}
+                </Text>
+
+                <Pressable>
+                  <Ionicons name="add-circle" size={35} color="#8D6E63" />
+                </Pressable>
+              </View>
+            </View>
           )}
         />
       </View>
@@ -115,7 +222,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: "#FDFBF7",
+    backgroundColor: "#fbf3e3",
     gap: 20,
   },
   headerContainer: {
@@ -126,7 +233,7 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 10,
+    // paddingHorizontal: 10,
   },
   avatar: {
     height: 70,
@@ -163,27 +270,30 @@ const styles = StyleSheet.create({
 
   secondHeader: {
     flexDirection: "row",
-    marginHorizontal: 20,
+    marginHorizontal: 10,
     alignItems: "center",
-    backgroundColor: "#eee7e7",
+    // backgroundColor: "#eee7e7",
+    backgroundColor: "#ffffff",
     height: 55,
     borderRadius: 25,
     paddingHorizontal: 10,
   },
   optionsButton: {
-    backgroundColor: "#AD6636",
+    // backgroundColor: "#AD6636",
+    backgroundColor: "#8D6E63",
     padding: 4,
     borderRadius: 20,
   },
   heroContainer: {
     backgroundColor: "#4B2E24",
     flexDirection: "row",
-    marginHorizontal: 10,
+    // marginHorizontal: 10,
     paddingHorizontal: 12,
     borderRadius: 10,
     paddingVertical: 15,
   },
   subHero1: { flex: 1 },
+  subHero2: { justifyContent: "space-between" },
   heroHeading: {
     color: "#f2c291",
     fontFamily: "DMSans-SemiBold",
@@ -220,22 +330,60 @@ const styles = StyleSheet.create({
   categoryHeading: {
     fontFamily: "DMSans-SemiBold",
     fontSize: 18,
-    marginLeft: 10,
   },
   categoryList: {
-    paddingHorizontal: 10,
     gap: 10,
   },
   category: {
     paddingVertical: 10,
     paddingHorizontal: 15,
-    borderRadius: 15,
-    fontFamily: "DMSans-Regular",
-    backgroundColor: "#eee7e7",
-    color: "#000000",
+    borderRadius: 20,
+    backgroundColor: "#ffffff",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5,
   },
   categoryActive: {
-    backgroundColor: "#AD6636",
-    color: "#eee7e7",
+    backgroundColor: "#8D6E63",
+  },
+  categoryText: {
+    fontFamily: "DMSans-Regular",
+    color: "#000000",
+  },
+  categoryTextActive: {
+    color: "#ffffff",
+  },
+  productContainer: { gap: 10, marginTop: 10, flex: 1 },
+  productHeading: {
+    fontFamily: "DMSans-SemiBold",
+    fontSize: 18,
+  },
+  productItem: {
+    paddingVertical: 12,
+    flex: 1,
+    backgroundColor: "#ffffff",
+    borderRadius: 10,
+    position: "relative",
+  },
+  productImageItem: {
+    width: 120,
+    height: 120,
+  },
+  rating: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 3,
+    backgroundColor: "#d2ac61",
+    borderRadius: 4,
+    paddingHorizontal: 5,
+    paddingVertical: 2,
+  },
+  ratingText: {
+    color: "#ffffff",
+    fontSize: 12,
+    fontFamily: "DMSans-Regular",
   },
 });
