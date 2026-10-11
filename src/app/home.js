@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CategoryList from "../components/home/CategoryList";
@@ -5,13 +6,21 @@ import CoffeeCard from "../components/home/CoffeeCard";
 import HeroBanner from "../components/home/HeroBanner";
 import HomeHeader from "../components/home/HomeHeader";
 import { COFFEES } from "../constants/coffees";
+
 export default function HomeScreen() {
+  const [category, setCategory] = useState("All");
+
+  const data =
+    category !== "All"
+      ? COFFEES.filter((item) => item.category === category)
+      : COFFEES;
+
   return (
     <SafeAreaView style={styles.safeContainer}>
       {/* Product Container */}
       <View style={styles.productContainer}>
         <FlatList
-          data={COFFEES}
+          data={data}
           keyExtractor={(item) => item.id}
           numColumns={2}
           key={2}
@@ -21,7 +30,7 @@ export default function HomeScreen() {
               {/* Hero Container */}
               <HeroBanner />
               {/* Category Container */}
-              <CategoryList />
+              <CategoryList category={category} setCategory={setCategory} />
               <Text style={styles.productHeading}>Popular Coffee</Text>
             </View>
           }
@@ -45,5 +54,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fbf3e3",
     gap: 20,
+  },
+  productHeading: {
+    fontFamily: "DMSans-SemiBold",
+    fontSize: 18,
   },
 });

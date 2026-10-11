@@ -1,9 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { Pressable, StyleSheet, Text, View } from "react-native";
+import Animated, { FadeInUp } from "react-native-reanimated";
+
 export default function CoffeeCard({ coffee }) {
   return (
-    <View style={styles.productItem}>
+    <Animated.View entering={FadeInUp.duration(300)} style={styles.productItem}>
       <View style={{ alignItems: "center" }}>
         <Image
           source={coffee.image}
@@ -60,16 +62,13 @@ export default function CoffeeCard({ coffee }) {
           <Ionicons name="add-circle" size={35} color="#8D6E63" />
         </Pressable>
       </View>
-    </View>
+    </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
   productContainer: { gap: 10, marginTop: 10, flex: 1 },
-  productHeading: {
-    fontFamily: "DMSans-SemiBold",
-    fontSize: 18,
-  },
+
   productItem: {
     paddingVertical: 12,
     flex: 1,

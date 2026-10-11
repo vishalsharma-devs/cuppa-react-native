@@ -1,17 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
 import {
-    Alert,
-    FlatList,
-    Pressable,
-    StyleSheet,
-    Text,
-    View,
+  FlatList,
+  Pressable,
+  StyleSheet,
+  Text,
+  View
 } from "react-native";
 import { CATEGORIES } from "../../constants/categories";
-export default function CategoryList() {
-  const [category, setCategory] = useState("All");
-
+export default function CategoryList({ category, setCategory }) {
   return (
     <View style={styles.categoryContainer}>
       <Text style={styles.categoryHeading}>Categories</Text>
@@ -24,7 +20,6 @@ export default function CategoryList() {
           <Pressable
             onPress={() => {
               setCategory(item.name);
-              Alert.alert("Hello I am ", item.name);
             }}
             style={[
               styles.category,
