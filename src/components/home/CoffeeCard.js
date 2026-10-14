@@ -1,11 +1,19 @@
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import Animated, { FadeInUp } from "react-native-reanimated";
-
-export default function CoffeeCard({ coffee }) {
+export default function CoffeeCard({
+  coffee,
+  cardWidth,
+  quantity,
+  addItem,
+  subtractItem,
+}) {
   return (
-    <Animated.View entering={FadeInUp.duration(300)} style={styles.productItem}>
+    <Animated.View
+      entering={FadeInUp.duration(300)}
+      style={[styles.productItem, { width: cardWidth }]}
+    >
       <View style={{ alignItems: "center" }}>
         <Image
           source={coffee.image}
@@ -47,9 +55,6 @@ export default function CoffeeCard({ coffee }) {
       </View>
       <View
         style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
           paddingHorizontal: 10,
           paddingTop: 10,
         }}
@@ -57,10 +62,84 @@ export default function CoffeeCard({ coffee }) {
         <Text style={{ fontFamily: "DMSans-SemiBold", fontSize: 16 }}>
           $ {coffee.price.toFixed(2)}
         </Text>
-
-        <Pressable>
-          <Ionicons name="add-circle" size={35} color="#8D6E63" />
-        </Pressable>
+      </View>
+      <View style={{ alignItems: "flex-end", paddingHorizontal: 10 }}>
+        {quantity[coffee.id] > 0 ? (
+          <View
+            style={{
+              flexDirection: "row",
+              gap: 10,
+              alignItems: "center",
+            }}
+          >
+            <Pressable
+              onPress={() => subtractItem(coffee.id)}
+              accessibilityRole="button"
+              accessibilityLabel={`Decrease ${coffee.name} quantity`}
+              style={{
+                justifyContent: "center",
+                backgroundColor: "#8D6E63",
+                paddingVertical: 5,
+                borderRadius: 8,
+                paddingHorizontal: 5,
+              }}
+            >
+              <MaterialCommunityIcons name="minus" size={20} color="#ffffff" />
+            </Pressable>
+            <Text
+              style={{
+                fontFamily: "DMSans-SemiBold",
+                fontSize: 17,
+                width: 24,
+                textAlign: "center",
+                fontVariant: ["tabular-nums"],
+              }}
+            >
+              {quantity[coffee.id]}
+            </Text>
+            <Pressable
+              onPress={() => addItem(coffee.id)}
+              accessibilityRole="button"
+              accessibilityLabel={`Increase ${coffee.name} quantity`}
+              style={{
+                justifyContent: "center",
+                backgroundColor: "#8D6E63",
+                paddingVertical: 5,
+                borderRadius: 8,
+                paddingHorizontal: 5,
+              }}
+            >
+              <MaterialCommunityIcons name="plus" size={20} color="#ffffff" />
+            </Pressable>
+          </View>
+        ) : (
+          <Pressable
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              backgroundColor: "#8D6E63",
+              paddingVertical: 5,
+              borderRadius: 8,
+              paddingLeft: 2,
+              paddingRight: 7,
+              gap: 2,
+            }}
+            onPress={() => addItem(coffee.id)}
+            accessibilityRole="button"
+            accessibilityLabel={`Add ${coffee.name} to cart`}
+          >
+            <MaterialCommunityIcons name="plus" size={20} color="#ffffff" />
+            <Text
+              style={{
+                color: "#ffffff",
+                fontFamily: "DMSans-Medium",
+                fontSize: 15,
+              }}
+            >
+              Add
+            </Text>
+          </Pressable>
+        )}
       </View>
     </Animated.View>
   );
@@ -71,7 +150,6 @@ const styles = StyleSheet.create({
 
   productItem: {
     paddingVertical: 12,
-    flex: 1,
     backgroundColor: "#ffffff",
     borderRadius: 10,
     position: "relative",

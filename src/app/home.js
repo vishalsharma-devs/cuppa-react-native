@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CategoryList from "../components/home/CategoryList";
 import CoffeeCard from "../components/home/CoffeeCard";
@@ -8,12 +14,27 @@ import HomeHeader from "../components/home/HomeHeader";
 import { COFFEES } from "../constants/coffees";
 
 export default function HomeScreen() {
+  const { width } = useWindowDimensions();
+  const cardWidth = (width - 30) / 2;
   const [category, setCategory] = useState("All");
 
   const data =
     category !== "All"
       ? COFFEES.filter((item) => item.category === category)
       : COFFEES;
+  const [quantity, setQuantity] = useState({});
+  const addItem = (coffeeId) => {
+    setQuantity((previousCart) => ({
+      ...previousCart,
+      [coffeeId]: (previousCart[coffeeId] || 0) + 1,
+    }));
+  };
+  const subtractItem = (coffeeId) => {
+    setQuantity((previousCart) => ({
+      ...previousCart,
+      [coffeeId]: previousCart[coffeeId] - 1,
+    }));
+  };
 
   return (
     <SafeAreaView style={styles.safeContainer}>
@@ -42,7 +63,15 @@ export default function HomeScreen() {
           columnWrapperStyle={{
             gap: 10,
           }}
-          renderItem={({ item }) => <CoffeeCard coffee={item} />}
+          renderItem={({ item }) => (
+            <CoffeeCard
+              coffee={item}
+              cardWidth={cardWidth}
+              quantity={quantity}
+              addItem={addItem}
+              subtractItem={subtractItem}
+            />
+          )}
         />
       </View>
     </SafeAreaView>
@@ -54,6 +83,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fbf3e3",
     gap: 20,
+    // #FDFBF7
   },
   productHeading: {
     fontFamily: "DMSans-SemiBold",
