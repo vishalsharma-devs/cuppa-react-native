@@ -81,7 +81,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: "#fbf3e3",
+    backgroundColor: "#F7F3E9",
     gap: 20,
     // #FDFBF7
   },

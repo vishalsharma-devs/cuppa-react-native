@@ -1,5 +1,6 @@
 import { Image } from "expo-image";
 import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
+import { theme } from "../../theme/theme";
 export default function HeroBanner() {
   return (
     <View style={styles.heroContainer}>
@@ -27,9 +28,8 @@ export default function HeroBanner() {
 
 const styles = StyleSheet.create({
   heroContainer: {
-    backgroundColor: "#4B2E24",
+    backgroundColor: theme.colors.primary,
     flexDirection: "row",
-    // marginHorizontal: 10,
     paddingHorizontal: 12,
     borderRadius: 10,
     paddingVertical: 15,
@@ -37,35 +37,36 @@ const styles = StyleSheet.create({
   subHero1: { flex: 1 },
   subHero2: { justifyContent: "space-between" },
   heroHeading: {
-    color: "#f2c291",
-    fontFamily: "DMSans-SemiBold",
-    backgroundColor: "rgba(11, 11, 11,0.5)",
+    color: theme.colors.accent,
+    fontFamily: theme.fonts.semiBold,
+    backgroundColor: "rgba(0, 0, 0,0.2)",
     alignSelf: "flex-start",
     padding: 2,
   },
   heroHeadline: {
-    color: "#ffffff",
-    fontSize: 25,
-    fontFamily: "Lora-SemiBold",
+    color: theme.colors.white,
+    fontSize: theme.fontSizes.xl,
+    fontFamily: theme.fonts.title,
     marginTop: 5,
   },
   heroButton: {
-    backgroundColor: "#f2c291",
+    backgroundColor: theme.colors.accent,
     alignSelf: "flex-start",
     padding: 10,
     borderRadius: 10,
     marginTop: 10,
   },
   heroButtonText: {
-    fontSize: 16,
-    fontFamily: "DMSans-SemiBold",
+    fontSize: theme.fontSizes.md,
+    fontFamily: theme.fonts.semiBold,
+    color: theme.colors.primary,
   },
   promoBadge: {
-    color: "#ffffff",
+    color: theme.colors.white,
     opacity: 0.8,
     alignSelf: "flex-end",
     marginTop: 10,
-    fontFamily: "DMSans-Regular",
+    fontFamily: theme.fonts.regular,
   },
   heroImage: { height: 120, width: 150 },
 });

@@ -1,13 +1,14 @@
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import {
-    Alert,
-    Pressable,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  Alert,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
+import { theme } from "../../theme/theme";
 export default function HomeHeader() {
   return (
     <View style={styles.headerContainer}>
@@ -23,7 +24,7 @@ export default function HomeHeader() {
             <Ionicons
               name="location-outline"
               size={20}
-              color="#AD6636"
+              color={theme.colors.accent}
               style={styles.locationIcon}
             />
             <Text style={styles.headerUserLocation}>Toronto, Canada</Text>
@@ -34,13 +35,21 @@ export default function HomeHeader() {
           onPress={() => Alert.alert("Hi, I am Notification")}
           style={styles.notificationButton}
         >
-          <Ionicons name="notifications-outline" size={28} color="#8D6E63" />
+          <MaterialCommunityIcons
+            name="bell-outline"
+            size={28}
+            color={theme.colors.primary}
+          />
         </Pressable>
       </View>
       <View style={styles.secondHeader}>
-        <Ionicons name="search-outline" size={28} />
+        <Ionicons name="search-outline" size={28} color={theme.colors.text} />
 
-        <TextInput placeholder="Search Coffee.." style={styles.searchInput} />
+        <TextInput
+          placeholder="Search Coffee.."
+          style={styles.searchInput}
+          placeholderTextColor={theme.colors.textSecondary}
+        />
         <Pressable
           onPress={() => Alert.alert("Hi, I am Options")}
           style={styles.optionsButton}
@@ -69,15 +78,17 @@ const styles = StyleSheet.create({
   },
   headerUserInfo: { flex: 1, paddingLeft: 10 },
   headerUsername: {
-    fontSize: 17,
-    fontFamily: "DMSans-SemiBold",
+    fontSize: theme.fontSizes.lg,
+    fontFamily: theme.fonts.semiBold,
+    color: theme.colors.text,
   },
   headerUserLocation: {
-    color: "#464646",
-    fontFamily: "DMSans-Regular",
+    color: theme.colors.textSecondary,
+    fontFamily: theme.fonts.regular,
+    fontSize: theme.fontSizes.sm,
   },
   notificationButton: {
-    backgroundColor: "#f9e1d5",
+    backgroundColor: theme.colors.notificationBg,
     padding: 10,
     borderRadius: 25,
   },
@@ -89,25 +100,24 @@ const styles = StyleSheet.create({
     marginLeft: -4,
   },
   searchInput: {
-    fontSize: 17,
-    fontFamily: "DMSans-Regular",
+    fontSize: theme.fontSizes.md,
+    fontFamily: theme.fonts.regular,
     flex: 1,
     paddingLeft: 10,
+    color: theme.colors.text,
   },
 
   secondHeader: {
     flexDirection: "row",
     marginHorizontal: 10,
     alignItems: "center",
-    // backgroundColor: "#eee7e7",
-    backgroundColor: "#ffffff",
+    backgroundColor: theme.colors.surface,
     height: 55,
     borderRadius: 25,
     paddingHorizontal: 10,
   },
   optionsButton: {
-    // backgroundColor: "#AD6636",
-    backgroundColor: "#8D6E63",
+    backgroundColor: theme.colors.primary,
     padding: 4,
     borderRadius: 20,
   },

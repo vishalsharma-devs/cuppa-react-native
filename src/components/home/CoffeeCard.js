@@ -3,6 +3,7 @@ import { Image } from "expo-image";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import Animated, { FadeInUp } from "react-native-reanimated";
 import { useFavoriteStore } from "../../store/useFavoriteStore";
+import { theme } from "../../theme/theme";
 export default function CoffeeCard({
   coffee,
   cardWidth,
@@ -31,11 +32,11 @@ export default function CoffeeCard({
           <MaterialCommunityIcons
             name={isFavorite ? "heart" : "heart-outline"}
             size={20}
-            color="#f53e3e"
+            color={theme.colors.primary}
           />
         </Pressable>
         <View style={styles.rating}>
-          <Ionicons name="star-sharp" size={13} color="#ffffff" />
+          <Ionicons name="star-sharp" size={13} color={theme.colors.white} />
           <Text style={styles.ratingText}>{coffee.rating}</Text>
         </View>
       </View>
@@ -56,9 +57,10 @@ export default function CoffeeCard({
       >
         <Text
           style={{
-            fontSize: 16,
-            fontFamily: "DMSans-SemiBold",
+            fontSize: theme.fontSizes.md,
+            fontFamily: theme.fonts.semiBold,
             letterSpacing: -0.1,
+            color: theme.colors.text,
           }}
           numberOfLines={2}
         >
@@ -66,9 +68,9 @@ export default function CoffeeCard({
         </Text>
         <Text
           style={{
-            fontFamily: "DMSans-Regular",
-            fontSize: 13,
-            color: "#7b7979",
+            fontFamily: theme.fonts.regular,
+            fontSize: theme.fontSizes.sm,
+            color: theme.colors.textSecondary,
           }}
         >
           {coffee.description}
@@ -80,7 +82,13 @@ export default function CoffeeCard({
           paddingTop: 10,
         }}
       >
-        <Text style={{ fontFamily: "DMSans-SemiBold", fontSize: 16 }}>
+        <Text
+          style={{
+            fontFamily: theme.fonts.semiBold,
+            fontSize: theme.fontSizes.md,
+            color: theme.colors.primary,
+          }}
+        >
           $ {coffee.price.toFixed(2)}
         </Text>
       </View>
@@ -99,18 +107,24 @@ export default function CoffeeCard({
               accessibilityLabel={`Decrease ${coffee.name} quantity`}
               style={{
                 justifyContent: "center",
-                backgroundColor: "#8D6E63",
+                // backgroundColor: "#8D6E63",
+                backgroundColor: theme.colors.primary,
                 paddingVertical: 5,
                 borderRadius: 8,
                 paddingHorizontal: 5,
               }}
             >
-              <MaterialCommunityIcons name="minus" size={20} color="#ffffff" />
+              <MaterialCommunityIcons
+                name="minus"
+                size={20}
+                color={theme.colors.white}
+              />
             </Pressable>
             <Text
               style={{
-                fontFamily: "DMSans-SemiBold",
-                fontSize: 17,
+                fontFamily: theme.fonts.semiBold,
+                fontSize: theme.fontSizes.lg,
+                color: theme.colors.text,
                 width: 24,
                 textAlign: "center",
                 fontVariant: ["tabular-nums"],
@@ -124,13 +138,17 @@ export default function CoffeeCard({
               accessibilityLabel={`Increase ${coffee.name} quantity`}
               style={{
                 justifyContent: "center",
-                backgroundColor: "#8D6E63",
+                backgroundColor: theme.colors.primary,
                 paddingVertical: 5,
                 borderRadius: 8,
                 paddingHorizontal: 5,
               }}
             >
-              <MaterialCommunityIcons name="plus" size={20} color="#ffffff" />
+              <MaterialCommunityIcons
+                name="plus"
+                size={20}
+                color={theme.colors.white}
+              />
             </Pressable>
           </View>
         ) : (
@@ -138,7 +156,7 @@ export default function CoffeeCard({
             style={{
               flexDirection: "row",
               alignItems: "center",
-              backgroundColor: "#8D6E63",
+              backgroundColor: theme.colors.primary,
               paddingVertical: 5,
               borderRadius: 8,
               paddingLeft: 2,
@@ -152,9 +170,9 @@ export default function CoffeeCard({
             <MaterialCommunityIcons name="plus" size={20} color="#ffffff" />
             <Text
               style={{
-                color: "#ffffff",
-                fontFamily: "DMSans-Medium",
-                fontSize: 15,
+                fontFamily: theme.fonts.medium,
+                fontSize: theme.fontSizes.sm,
+                color: theme.colors.white,
               }}
             >
               Add
@@ -171,7 +189,7 @@ const styles = StyleSheet.create({
 
   productItem: {
     paddingVertical: 12,
-    backgroundColor: "#ffffff",
+    backgroundColor: theme.colors.surface,
     borderRadius: 10,
     position: "relative",
   },
@@ -180,20 +198,17 @@ const styles = StyleSheet.create({
     height: 120,
   },
   rating: {
-    // position: "absolute",
-    // top: 10,
-    // right: 10,
     flexDirection: "row",
     alignItems: "center",
     gap: 3,
-    backgroundColor: "#d2ac61",
+    backgroundColor: theme.colors.accent,
     borderRadius: 4,
     paddingHorizontal: 5,
     paddingVertical: 2,
   },
   ratingText: {
-    color: "#ffffff",
-    fontSize: 12,
-    fontFamily: "DMSans-Regular",
+    color: theme.colors.white,
+    fontSize: theme.fontSizes.xs,
+    fontFamily: theme.fonts.regular,
   },
 });
