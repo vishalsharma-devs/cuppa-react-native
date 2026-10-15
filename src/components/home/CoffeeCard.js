@@ -2,6 +2,7 @@ import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import Animated, { FadeInUp } from "react-native-reanimated";
+import { useFavoriteStore } from "../../store/useFavoriteStore";
 export default function CoffeeCard({
   coffee,
   cardWidth,
@@ -9,11 +10,35 @@ export default function CoffeeCard({
   addItem,
   subtractItem,
 }) {
+  const isFavorite = useFavoriteStore((state) =>
+    state.favorites.includes(coffee.id),
+  );
+
+  const toggleFavorite = useFavoriteStore((state) => state.toggleFavorite);
   return (
     <Animated.View
       entering={FadeInUp.duration(300)}
       style={[styles.productItem, { width: cardWidth }]}
     >
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          paddingHorizontal: 10,
+        }}
+      >
+        <Pressable onPress={() => toggleFavorite(coffee.id)}>
+          <MaterialCommunityIcons
+            name={isFavorite ? "heart" : "heart-outline"}
+            size={20}
+            color="#f53e3e"
+          />
+        </Pressable>
+        <View style={styles.rating}>
+          <Ionicons name="star-sharp" size={13} color="#ffffff" />
+          <Text style={styles.ratingText}>{coffee.rating}</Text>
+        </View>
+      </View>
       <View style={{ alignItems: "center" }}>
         <Image
           source={coffee.image}
@@ -22,10 +47,6 @@ export default function CoffeeCard({
         />
       </View>
 
-      <View style={styles.rating}>
-        <Ionicons name="star-sharp" size={13} color="#ffffff" />
-        <Text style={styles.ratingText}>{coffee.rating}</Text>
-      </View>
       <View
         style={{
           paddingHorizontal: 10,
@@ -159,9 +180,9 @@ const styles = StyleSheet.create({
     height: 120,
   },
   rating: {
-    position: "absolute",
-    top: 10,
-    right: 10,
+    // position: "absolute",
+    // top: 10,
+    // right: 10,
     flexDirection: "row",
     alignItems: "center",
     gap: 3,
