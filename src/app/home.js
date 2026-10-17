@@ -9,7 +9,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import CategoryList from "../components/home/CategoryList";
 import CoffeeCard from "../components/home/CoffeeCard";
-import HeroBanner from "../components/home/HeroBanner";
+import HeroCarousel from "../components/home/HeroCarousel";
 import HomeHeader from "../components/home/HomeHeader";
 import { COFFEES } from "../constants/coffees";
 
@@ -49,7 +49,7 @@ export default function HomeScreen() {
             <View style={{ gap: 15 }}>
               <HomeHeader />
               {/* Hero Container */}
-              <HeroBanner />
+              <HeroCarousel />
               {/* Category Container */}
               <CategoryList category={category} setCategory={setCategory} />
               <Text style={styles.productHeading}>Popular Coffee</Text>
@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F7F3E9",
     gap: 20,
-    // #FDFBF7
   },
   productHeading: {
     fontFamily: "DMSans-SemiBold",

@@ -3,8 +3,9 @@ import { useRouter } from "expo-router";
 import { useEffect, useRef } from "react";
 import { Animated, StyleSheet, Text, View } from "react-native";
 import Svg, { Circle, Path } from "react-native-svg";
-import CoffeeCup from "../../assets/project_images/coffee-cupp.svg";
+import CoffeeCup from "../../assets/project_images/coffee-cup.svg";
 import { STRINGS } from "../constants/strings";
+import { theme } from "../theme/theme";
 export default function SplashScreen() {
   const router = useRouter();
   const progress = useRef(new Animated.Value(0)).current;
@@ -56,7 +57,10 @@ export default function SplashScreen() {
     outputRange: ["0%", "100%"],
   });
   return (
-    <LinearGradient colors={["#fee6e6", "#ffffff"]} style={styles.container}>
+    <LinearGradient
+      colors={[theme.colors.background, theme.colors.notificationBg]}
+      style={styles.container}
+    >
       <Animated.View
         style={[
           styles.titleContainer,
@@ -92,7 +96,7 @@ export default function SplashScreen() {
           ]}
         >
           <Svg width={200} height={200} viewBox="0 0 200 200">
-            <Circle cx={100} cy={100} r={85} fill="#ffffff" />
+            <Circle cx={100} cy={100} r={85} fill={theme.colors.surface} />
           </Svg>
         </Animated.View>
         <Animated.View
@@ -121,7 +125,7 @@ export default function SplashScreen() {
           <Svg width={80} height={80} viewBox="0 0 80 80">
             <Path
               d="M20 70 C5 55, 35 45, 20 25"
-              stroke="#AD6636"
+              stroke={theme.colors.accent}
               strokeWidth={1.2}
               fill="none"
               strokeLinecap="round"
@@ -129,7 +133,7 @@ export default function SplashScreen() {
 
             <Path
               d="M40 70 C25 55, 55 45, 40 25"
-              stroke="#AD6636"
+              stroke={theme.colors.accent}
               strokeWidth={1.2}
               fill="none"
               strokeLinecap="round"
@@ -137,7 +141,7 @@ export default function SplashScreen() {
 
             <Path
               d="M60 70 C45 55, 75 45, 60 25"
-              stroke="#AD6636"
+              stroke={theme.colors.accent}
               strokeWidth={1.2}
               fill="none"
               strokeLinecap="round"
@@ -180,7 +184,7 @@ export default function SplashScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: theme.colors.background,
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "column",
@@ -188,14 +192,15 @@ const styles = StyleSheet.create({
     paddingBottom: 60,
   },
   title: {
-    fontSize: 42,
-    color: "#AD6636",
+    fontSize: theme.fontSizes.display,
+    color: theme.colors.primary,
     textAlign: "center",
-    fontFamily: "Lora-SemiBold",
+    fontFamily: theme.fonts.title,
   },
   tagLine: {
-    fontSize: 17,
-    fontFamily: "DMSans-Regular",
+    fontSize: theme.fontSizes.lg,
+    fontFamily: theme.fonts.regular,
+    color: theme.colors.textSecondary,
   },
   titleContainer: {
     width: "100%",
@@ -209,7 +214,7 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   circleShadowBox: {
-    backgroundColor: "#ffffff",
+    backgroundColor: theme.colors.surface,
     borderRadius: 100,
     elevation: 4,
   },
@@ -229,7 +234,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   progressBarTrack: {
-    backgroundColor: "#E8D8D8",
+    backgroundColor: theme.colors.surface,
     width: "100%",
     height: 6,
     borderRadius: 3,
@@ -237,14 +242,13 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   progressBarFill: {
-    width: "40%",
-    backgroundColor: "#AD6636",
+    backgroundColor: theme.colors.primary,
     height: "100%",
   },
   loadingText: {
-    fontSize: 14,
+    fontSize: theme.fontSizes.sm,
     letterSpacing: 0.8,
-    color: "#AD6636",
-    fontFamily: "DMSans-Medium",
+    color: theme.colors.primary,
+    fontFamily: theme.fonts.medium,
   },
 });

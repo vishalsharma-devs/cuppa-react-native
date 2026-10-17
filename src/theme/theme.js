@@ -9,6 +9,7 @@ export const theme = {
     white: "#FFFFFF",
     border: "#E7E4DB",
     notificationBg: "#DCE9DF",
+    heroGold: "#F5CB7A",
   },
 
   fontSizes: {
@@ -18,10 +19,12 @@ export const theme = {
     lg: 18,
     xl: 22,
     xxl: 28,
+    display: 42,
   },
 
   fonts: {
     regular: "DMSans-Regular",
+    medium: "DMSans-Medium",
     semiBold: "DMSans-SemiBold",
     title: "Lora-SemiBold",
   },
