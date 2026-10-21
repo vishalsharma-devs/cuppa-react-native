@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FlatList, View } from "react-native";
 import { BANNERS } from "../../constants/banners";
 import HeroBanner from "../banners/HeroBanner";
@@ -6,7 +6,24 @@ import HeroBanner2 from "../banners/HeroBanner2";
 import HeroBanner3 from "../banners/HeroBanner3";
 export default function HeroCarousel() {
   const [bannerWidth, setBannerWidth] = useState(0);
+  const flatListRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  useEffect(() => {
+    if (bannerWidth === 0) return;
+
+    const timer = setTimeout(() => {
+      const nextIndex = (activeIndex + 1) % BANNERS.length;
+
+      flatListRef.current?.scrollToOffset({
+        offset: nextIndex * bannerWidth,
+        animated: true,
+      });
+
+      setActiveIndex(nextIndex);
+    }, 4000);
+
+    return () => clearTimeout(timer);
+  }, [activeIndex, bannerWidth]);
   return (
     <View
       style={{ width: "100%" }}
@@ -16,9 +33,11 @@ export default function HeroCarousel() {
     >
       {bannerWidth > 0 && (
         <FlatList
+          ref={flatListRef}
           data={BANNERS}
           horizontal
           pagingEnabled
+          showsHorizontalScrollIndicator={false}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <View style={{ width: bannerWidth }}>
@@ -27,6 +46,12 @@ export default function HeroCarousel() {
               {item.id === 3 && <HeroBanner3 banner={item} />}
             </View>
           )}
+          onMomentumScrollEnd={(event) => {
+            const scrollX = event.nativeEvent.contentOffset.x;
+            const index = Math.round(scrollX / bannerWidth);
+
+            setActiveIndex(index);
+          }}
         />
       )}
 
@@ -41,10 +66,10 @@ export default function HeroCarousel() {
           <View
             key={banner.id}
             style={{
-              width: index === 0 ? 20 : 8,
+              width: index === activeIndex ? 20 : 8,
               height: 8,
               borderRadius: 4,
-              backgroundColor: index === 0 ? "#D8A45B" : "#CCCCCC",
+              backgroundColor: index === activeIndex ? "#D8A45B" : "#CCCCCC",
               marginHorizontal: 4,
             }}
           />
