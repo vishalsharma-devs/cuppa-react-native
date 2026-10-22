@@ -1,9 +1,11 @@
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
+import { router } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import Animated, { FadeInUp } from "react-native-reanimated";
 import { useFavoriteStore } from "../../store/useFavoriteStore";
 import { theme } from "../../theme/theme";
+
 export default function CoffeeCard({
   coffee,
   cardWidth,
@@ -40,58 +42,68 @@ export default function CoffeeCard({
           <Text style={styles.ratingText}>{coffee.rating}</Text>
         </View>
       </View>
-      <View style={{ alignItems: "center" }}>
-        <Image
-          source={coffee.image}
-          style={styles.productImageItem}
-          contentFit="contain"
-        />
-      </View>
 
-      <View
-        style={{
-          paddingHorizontal: 10,
-          paddingTop: 10,
-          flex: 1,
-        }}
+      <Pressable
+        style={{ flex: 1 }}
+        onPress={() =>
+          router.push({
+            pathname: "/product",
+            params: { id: String(coffee.id) },
+          })
+        }
       >
-        <Text
+        <View style={{ alignItems: "center" }}>
+          <Image
+            source={coffee.image}
+            style={styles.productImageItem}
+            contentFit="contain"
+          />
+        </View>
+        <View
           style={{
-            fontSize: theme.fontSizes.md,
-            fontFamily: theme.fonts.semiBold,
-            letterSpacing: -0.1,
-            color: theme.colors.text,
-          }}
-          numberOfLines={2}
-        >
-          {coffee.name}
-        </Text>
-        <Text
-          style={{
-            fontFamily: theme.fonts.regular,
-            fontSize: theme.fontSizes.sm,
-            color: theme.colors.textSecondary,
+            paddingHorizontal: 10,
+            paddingTop: 10,
+            flex: 1,
           }}
         >
-          {coffee.description}
-        </Text>
-      </View>
-      <View
-        style={{
-          paddingHorizontal: 10,
-          paddingTop: 10,
-        }}
-      >
-        <Text
+          <Text
+            style={{
+              fontSize: theme.fontSizes.md,
+              fontFamily: theme.fonts.semiBold,
+              letterSpacing: -0.1,
+              color: theme.colors.text,
+            }}
+            numberOfLines={2}
+          >
+            {coffee.name}
+          </Text>
+          <Text
+            style={{
+              fontFamily: theme.fonts.regular,
+              fontSize: theme.fontSizes.sm,
+              color: theme.colors.textSecondary,
+            }}
+          >
+            {coffee.description}
+          </Text>
+        </View>
+        <View
           style={{
-            fontFamily: theme.fonts.semiBold,
-            fontSize: theme.fontSizes.md,
-            color: theme.colors.primary,
+            paddingHorizontal: 10,
+            paddingTop: 10,
           }}
         >
-          $ {coffee.price.toFixed(2)}
-        </Text>
-      </View>
+          <Text
+            style={{
+              fontFamily: theme.fonts.semiBold,
+              fontSize: theme.fontSizes.md,
+              color: theme.colors.primary,
+            }}
+          >
+            $ {coffee.price.toFixed(2)}
+          </Text>
+        </View>
+      </Pressable>
       <View style={{ alignItems: "flex-end", paddingHorizontal: 10 }}>
         {quantity[coffee.id] > 0 ? (
           <View
