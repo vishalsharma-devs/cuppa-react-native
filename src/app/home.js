@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
-  useWindowDimensions
+  useWindowDimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CategoryList from "../components/home/CategoryList";
@@ -12,7 +12,7 @@ import CoffeeCard from "../components/home/CoffeeCard";
 import HeroCarousel from "../components/home/HeroCarousel";
 import HomeHeader from "../components/home/HomeHeader";
 import { COFFEES } from "../constants/coffees";
-
+import { useCartStore } from "../store/useCartStore";
 export default function HomeScreen() {
   const { width } = useWindowDimensions();
   const cardWidth = (width - 30) / 2;
@@ -22,19 +22,9 @@ export default function HomeScreen() {
     category !== "All"
       ? COFFEES.filter((item) => item.category === category)
       : COFFEES;
-  const [quantity, setQuantity] = useState({});
-  const addItem = (coffeeId) => {
-    setQuantity((previousCart) => ({
-      ...previousCart,
-      [coffeeId]: (previousCart[coffeeId] || 0) + 1,
-    }));
-  };
-  const subtractItem = (coffeeId) => {
-    setQuantity((previousCart) => ({
-      ...previousCart,
-      [coffeeId]: previousCart[coffeeId] - 1,
-    }));
-  };
+  const quantity = useCartStore((state) => state.quantity);
+  const addItem = useCartStore((state) => state.addItem);
+  const subtractItem = useCartStore((state) => state.subtractItem);
 
   return (
     <SafeAreaView style={styles.safeContainer}>
