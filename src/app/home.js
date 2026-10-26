@@ -11,6 +11,7 @@ import CategoryList from "../components/home/CategoryList";
 import CoffeeCard from "../components/home/CoffeeCard";
 import HeroCarousel from "../components/home/HeroCarousel";
 import HomeHeader from "../components/home/HomeHeader";
+import BottomNav from "../components/navigation/BottomNav";
 import { COFFEES } from "../constants/coffees";
 import { useCartStore } from "../store/useCartStore";
 export default function HomeScreen() {
@@ -29,7 +30,7 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.safeContainer}>
       {/* Product Container */}
-      <View style={styles.productContainer}>
+      <View style={{ flex: 1 }}>
         <FlatList
           data={data}
           keyExtractor={(item) => item.id}
@@ -64,6 +65,7 @@ export default function HomeScreen() {
           )}
         />
       </View>
+      <BottomNav />
     </SafeAreaView>
   );
 }
@@ -72,7 +74,7 @@ const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
     backgroundColor: "#F7F3E9",
-    gap: 20,
+    // gap: 20,
   },
   productHeading: {
     fontFamily: "DMSans-SemiBold",

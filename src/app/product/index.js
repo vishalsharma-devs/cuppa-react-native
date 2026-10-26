@@ -297,6 +297,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     paddingHorizontal: 10,
+    marginBottom: 20,
   },
   addToCart: {
     backgroundColor: theme.colors.primary,

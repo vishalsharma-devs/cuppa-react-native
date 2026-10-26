@@ -13,6 +13,7 @@ export default function SplashScreen() {
   const circleAnimatedValue = useRef(new Animated.Value(0)).current;
   const cupAnimatedValue = useRef(new Animated.Value(0)).current;
   const steamAnimatedValue = useRef(new Animated.Value(0)).current;
+
   useEffect(() => {
     Animated.sequence([
       Animated.timing(circleAnimatedValue, {
