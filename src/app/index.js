@@ -6,6 +6,7 @@ import Svg, { Circle, Path } from "react-native-svg";
 import CoffeeCup from "../../assets/project_images/coffee-cup.svg";
 import { STRINGS } from "../constants/strings";
 import { theme } from "../theme/theme";
+// const SKIP_SPLASH = true;
 export default function SplashScreen() {
   const router = useRouter();
   const progress = useRef(new Animated.Value(0)).current;
@@ -15,6 +16,10 @@ export default function SplashScreen() {
   const steamAnimatedValue = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
+    // if (SKIP_SPLASH) {
+    //   router.replace("/favorites");
+    //   return;
+    // }
     Animated.sequence([
       Animated.timing(circleAnimatedValue, {
         toValue: 1,

@@ -41,6 +41,7 @@ export default function BottomNav() {
             accessibilityState={{ selected: isActive }}
           >
             <View
+              key={isActive ? "active" : "inactive"}
               style={[
                 styles.iconContainer,
                 isActive && styles.activeIconContainer,
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: theme.colors.border,
     paddingTop: 10,
-    paddingBottom: 8,
+    paddingBottom: 12,
   },
 
   tab: {

@@ -7,13 +7,12 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import CategoryList from "../components/home/CategoryList";
-import CoffeeCard from "../components/home/CoffeeCard";
-import HeroCarousel from "../components/home/HeroCarousel";
-import HomeHeader from "../components/home/HomeHeader";
-import BottomNav from "../components/navigation/BottomNav";
-import { COFFEES } from "../constants/coffees";
-import { useCartStore } from "../store/useCartStore";
+import CategoryList from "../../components/home/CategoryList";
+import CoffeeCard from "../../components/home/CoffeeCard";
+import HeroCarousel from "../../components/home/HeroCarousel";
+import HomeHeader from "../../components/home/HomeHeader";
+import { COFFEES } from "../../constants/coffees";
+import { useCartStore } from "../../store/useCartStore";
 export default function HomeScreen() {
   const { width } = useWindowDimensions();
   const cardWidth = (width - 30) / 2;
@@ -65,7 +64,6 @@ export default function HomeScreen() {
           )}
         />
       </View>
-      <BottomNav />
     </SafeAreaView>
   );
 }
