@@ -17,7 +17,7 @@ export default function SplashScreen() {
 
   useEffect(() => {
     // if (SKIP_SPLASH) {
-    //   router.replace("/favorites");
+    //   router.replace("/cart");
     //   return;
     // }
     Animated.sequence([

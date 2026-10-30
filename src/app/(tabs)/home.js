@@ -71,8 +71,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: "#F7F3E9",
-    // gap: 20,
+    // backgroundColor: "#F7F3E9",
   },
   productHeading: {
     fontFamily: "DMSans-SemiBold",

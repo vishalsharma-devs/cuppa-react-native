@@ -123,7 +123,7 @@ export default function favorites() {
   );
 }
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#F7F3E9" },
+  container: { flex: 1 },
   savedContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
