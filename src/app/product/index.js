@@ -29,47 +29,18 @@ export default function ProductPage() {
     return total + coffeeTotal;
   }, 0);
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#F7F3E9" }}>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          paddingHorizontal: 10,
-          paddingVertical: 10,
-        }}
-      >
-        <Pressable
-          style={{
-            backgroundColor: theme.colors.notificationBg,
-
-            padding: 10,
-            borderRadius: 20,
-          }}
-          onPress={() => router.back()}
-        >
+    <SafeAreaView style={styles.container}>
+      <View style={styles.productDetailsHeader}>
+        <Pressable style={styles.headingArrow} onPress={() => router.back()}>
           <MaterialCommunityIcons
             name="arrow-left"
             size={24}
             color={theme.colors.primary}
           />
         </Pressable>
-        <Text
-          style={{
-            fontFamily: theme.fonts.semiBold,
-            fontSize: theme.fontSizes.xl,
-            color: theme.colors.primary,
-          }}
-        >
-          Product Details
-        </Text>
+        <Text style={styles.heading}>Product Details</Text>
         <Pressable
-          style={{
-            backgroundColor: theme.colors.notificationBg,
-
-            padding: 10,
-            borderRadius: 20,
-          }}
+          style={styles.headingFav}
           onPress={() => toggleFavorite(selectedCoffee.id)}
         >
           <MaterialCommunityIcons
@@ -89,13 +60,7 @@ export default function ProductPage() {
       </View>
       <View style={styles.productInfo1}>
         <Text style={styles.productCategory}>{selectedCoffee.category}</Text>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 5,
-          }}
-        >
+        <View style={styles.ratingView}>
           <Ionicons name="star-outline" size={18} color={theme.colors.accent} />
           <Text style={styles.productRating}>{selectedCoffee.rating}</Text>
         </View>
@@ -119,13 +84,7 @@ export default function ProductPage() {
           <View style={styles.quantity}>
             <Pressable
               onPress={() => subtractItem(selectedCoffee.id)}
-              style={{
-                justifyContent: "center",
-                backgroundColor: theme.colors.primary,
-                paddingVertical: 5,
-                borderRadius: 8,
-                paddingHorizontal: 5,
-              }}
+              style={styles.subtractItem}
             >
               <MaterialCommunityIcons
                 name="minus"
@@ -133,27 +92,10 @@ export default function ProductPage() {
                 color={theme.colors.white}
               />
             </Pressable>
-            <Text
-              style={{
-                fontFamily: theme.fonts.semiBold,
-                fontSize: theme.fontSizes.lg,
-                color: theme.colors.text,
-                width: 24,
-                textAlign: "center",
-                fontVariant: ["tabular-nums"],
-              }}
-            >
-              {quantity[id]}
-            </Text>
+            <Text style={styles.quantities}>{quantity[id]}</Text>
             <Pressable
               onPress={() => addItem(selectedCoffee.id)}
-              style={{
-                justifyContent: "center",
-                backgroundColor: theme.colors.primary,
-                paddingVertical: 5,
-                borderRadius: 8,
-                paddingHorizontal: 5,
-              }}
+              style={styles.addItem}
             >
               <MaterialCommunityIcons
                 name="plus"
@@ -164,37 +106,18 @@ export default function ProductPage() {
           </View>
         ) : (
           <Pressable
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              backgroundColor: theme.colors.primary,
-              paddingVertical: 5,
-              borderRadius: 8,
-              paddingLeft: 2,
-              paddingRight: 7,
-              gap: 2,
-            }}
+            style={styles.addButton}
             onPress={() => addItem(id)}
             accessibilityRole="button"
           >
             <MaterialCommunityIcons name="plus" size={20} color="#ffffff" />
-            <Text
-              style={{
-                fontFamily: theme.fonts.medium,
-                fontSize: theme.fontSizes.sm,
-                color: theme.colors.white,
-              }}
-            >
-              Add
-            </Text>
+            <Text style={styles.addButtonText}>Add</Text>
           </Pressable>
         )}
       </View>
       <View style={styles.addToCartContainer}>
         <Pressable style={styles.addToCart}>
-          <View
-            style={{ flexDirection: "row", gap: 10, alignItems: "flex-end" }}
-          >
+          <View style={styles.addToCartInnerBox}>
             <MaterialCommunityIcons
               name="shopping-outline"
               size={22}
@@ -210,6 +133,29 @@ export default function ProductPage() {
   );
 }
 const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: "#F7F3E9" },
+  productDetailsHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+  },
+  headingArrow: {
+    backgroundColor: theme.colors.notificationBg,
+    padding: 10,
+    borderRadius: 20,
+  },
+  heading: {
+    fontFamily: theme.fonts.semiBold,
+    fontSize: theme.fontSizes.xl,
+    color: theme.colors.primary,
+  },
+  headingFav: {
+    backgroundColor: theme.colors.notificationBg,
+    padding: 10,
+    borderRadius: 20,
+  },
   coffeeImage: {
     width: 260,
     height: 260,
@@ -232,6 +178,11 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSizes.md,
     fontFamily: theme.fonts.regular,
     textTransform: "uppercase",
+  },
+  ratingView: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5,
   },
   productRating: {
     fontFamily: theme.fonts.regular,
@@ -288,11 +239,49 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.regular,
     fontSize: theme.fontSizes.md,
   },
+  subtractItem: {
+    justifyContent: "center",
+    backgroundColor: theme.colors.primary,
+    paddingVertical: 5,
+    borderRadius: 8,
+    paddingHorizontal: 5,
+  },
+  addItem: {
+    justifyContent: "center",
+    backgroundColor: theme.colors.primary,
+    paddingVertical: 5,
+    borderRadius: 8,
+    paddingHorizontal: 5,
+  },
+  addButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: theme.colors.primary,
+    paddingVertical: 5,
+    borderRadius: 8,
+    paddingLeft: 2,
+    paddingRight: 7,
+    gap: 2,
+  },
+  addButtonText: {
+    fontFamily: theme.fonts.medium,
+    fontSize: theme.fontSizes.sm,
+    color: theme.colors.white,
+  },
+  quantities: {
+    fontFamily: theme.fonts.semiBold,
+    fontSize: theme.fontSizes.lg,
+    color: theme.colors.text,
+    width: 24,
+    textAlign: "center",
+    fontVariant: ["tabular-nums"],
+  },
   quantity: {
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
   },
+
   addToCartContainer: {
     flex: 1,
     justifyContent: "flex-end",
@@ -306,6 +295,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  addToCartInnerBox: { flexDirection: "row", gap: 10, alignItems: "flex-end" },
   addToCartText: {
     color: theme.colors.white,
     fontSize: theme.fontSizes.lg,
